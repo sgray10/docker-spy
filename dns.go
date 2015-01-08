@@ -81,11 +81,11 @@ func (s *DNS) handleDNSInternal(w dns.ResponseWriter, req *dns.Msg) {
 			return
 		}
 
-		log.Printf("No internal record found for %s", q.Name)
+		//log.Printf("No internal record found for %s", q.Name)
 		dns.HandleFailed(w, req)
 	}
 
-	log.Printf("Only handling type A requests, skipping")
+	//log.Printf("Only handling type A requests, skipping")
 	dns.HandleFailed(w, req)
 }
 

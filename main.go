@@ -24,11 +24,9 @@ func getopt(name, def string) string {
 }
 
 func main() {
-
 	flag.Parse()
 
 	log.Println("Starting DNS server...")
-
 	port, err := strconv.Atoi(*dnsPort)
 	if err != nil {
 		log.Fatalf("Could not convert %s to numeric type", *dnsPort)
@@ -44,16 +42,18 @@ func main() {
 	server.Run()
 
 	log.Println("Listening for container events...")
-
 	docker, err := dockerApi.NewClient(*dockerHost)
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	containers := make(map[string]Container)
+
 	spy := &Spy{
 		docker: docker,
 		dns:    server,
+		containers: containers,
 	}
 
 	spy.Watch()

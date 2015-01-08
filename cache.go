@@ -20,9 +20,7 @@ func (c Cache) Set(id string, r *Record) {
 
 // Provides lookups based on fqdn or ip
 func (c Cache) Get(id string) (*Record, bool) {
-
 	var reverseLookup = regexp.MustCompile("^.*\\.in-addr\\.arpa\\.$")
-
 	if reverseLookup.MatchString(id) {
 		for _, record := range c.records {
 			if record.arpa == id {
@@ -34,7 +32,6 @@ func (c Cache) Get(id string) (*Record, bool) {
 	if record, ok := c.records[id]; ok {
 		return record, true
 	}
-
 	return nil, false
 }
 
